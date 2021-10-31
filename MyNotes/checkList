@@ -1,0 +1,137 @@
+
+Cat - 1 :: 1
+---------------------------------------------------------------------------------------------------------------------------------------
+Programming concepts : 
+=======================
+
+  -> R&D for programming paradigms           
+  -> 
+  -> Object oriented programming
+  -> functional programming
+  
+  
+Core Java : 
+===========
+
+ -> JDK , JVM ,JRE
+ 
+ -> Basic constructs 
+  
+ -> OOPS concepts 
+	->Data abstraction
+	->inheritance
+	->polymorphism
+	->encapsulation
+	
+ -> Statics
+ -> Strings
+ 
+ -> Collection Framework
+	 ->list
+	 ->map
+	 ->tree
+	 
+ -> lambda expression
+ 
+ -> Concurrency
+	->threads
+	->thread pooling
+	->MultiThreading
+ 
+ -> Concurrent collections
+ -> synchronisation
+ -> serialisation & deserialisation
+	
+ -> Exceptions
+ -> Generics
+ 
+ -> IO
+    ->streams
+	->File handling
+ 
+Advanced Java :
+===============
+
+ -> JDBC
+ -> JSP & Servlets
+ 
+ 
+Data structures & Algorithms
+============================
+
+
+
+
+
+Networks:
+=========
+ 
+ 
+Design Patterns: 
+================
+
+
+
+Problem solving & coding practice :
+===================================
+
+
+Cat - 2 :: 2
+---------------------------------------------------------------------------------------------------------------------------------------
+ 
+Javascript: (follow Doc and update concepts)
+============
+
+
+
+Cat - 3 :: 3
+---------------------------------------------------------------------------------------------------------------------------------------
+DBMS : 
+======
+
+ -> RDBMS
+ -> ORDBMS
+ -> NoSQL
+ 
+ -> MySQL
+    ->DDL , DML ,DQL ,TCL 
+    ->procedures and functions
+    ->Indexing
+    ->Query optimisation
+    
+ -> PostgreSQL
+ 
+ 
+Frameworks (Java)
+=================
+
+  -> Spring
+  
+		-> Spring core
+				-> DI , IOC
+				-> AOP
+				-> API
+		-> Data persistence
+				-> spring data & Jpa
+		
+		-> Spring security
+  
+  -> Hibernate
+  
+  
+  
+  
+  
+Cat - 4 :: 4
+---------------------------------------------------------------------------------------------------------------------------------------
+Tools : 
+======
+ 
+Git:
+=====
+
+
+
+
+
+

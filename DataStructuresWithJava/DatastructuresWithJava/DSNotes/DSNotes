@@ -1,4 +1,24 @@
 Data Structures :
+===================
 
-		Data structures is the way of organizing the data in a specific style so that it can 
-be read / wrote / retrieved / deleted in an efficient way
+		A data structure is a way of organizing data in a specific way / fashion so that later on 
+		it can be accessed / queried / updated quickly or easily.
+		
+Abstract data type (ADT):
+=========================
+
+		An abstract data type (ADT) is simply an abstraction of a data structure. 
+		It provides only the interface to which a data structure must adhere to. 
+		The interface doesn’t provide any specific details about how something
+		should be implemented or in what programming language. 
+		
+		E.g : 
+		
+		List  --> ArrayList
+		Queue --> priorityQueue
+		Map	  --> HashMap
+		Tree  --> RBtree
+
+		
+Array : 
+=======
