@@ -1,0 +1,612 @@
+NOTES :
+
+
+Typescript : 
+============
+		Superset to JS
+		
+Check at time you write
+Ts doesnt run in Browser
+
+
+
+
+Angular:
+=======
+
+PTR : 
+
+Angular is just a JS framework in the end
+which changes the DOM at runtime.
+
+
+
+	=> Adding bootstrap to project:
+	
+			* npm install --save bootstrap
+			
+			* add 'node_modules/bootstrap/../bootstrap.min.css' path in  styles -> angular.json
+			
+			
+	=> How angular app starts:  
+	
+		* CLI creates root component. 
+		
+		* root component is nothing but the 
+		  app-component where selector -> app-root 
+		  
+		* script are imported in index.html by angular
+	
+		* in main.ts -> Appmodule is bootstrapped
+		
+		* in app-module.ts -> AppComponent is bootstrapped
+		
+	=> Components:
+	
+		* in root / app component we nest the other components.
+		
+		* @Component decorator is used to denote a component
+		
+		* selector -> is the html tag name of the component 
+		-> should be unique
+		-> should be string
+		
+		* templateUrl -> is the html file -> ref the external file or write the html directly 		
+		
+		* after creating a component -> register the component in app-module.ts -> declarations after importing
+		
+		* create component manually -> 
+		comp-name.component.ts
+		@component decorator
+		comp-name.component.html
+		comp-name.component.css
+
+		
+		
+		* creating component with CLI
+		-> ng g c <component-name>
+		-> ng generate component <comp-name>
+		
+		
+		* inline template ->
+		instead of templateUrl change property to template and write inline with backticks
+		
+		* template is mandatory ?
+		
+		* styleUrls -> reference
+		  style:[``] -> inline
+		  can't combine both
+		  can have multiple style files
+		  
+		* different way of using selector
+		
+		selector :  'app-compName' -> can use as tag
+		
+		selector : [app-compName] -> attribute selector  -> cant use as tag -> use-> <div app-compName></div>
+		
+		selector : '.app-compName' -> class selector use ->  <div class="app-compName"></div>
+		
+		id selector , pseudo selectors wont work
+		
+Data Binding:
+============
+* communication bw ts code / business logic to Template (HTML)
+
+
+	=> String interpolation {{}}
+	
+		* any expression that should be resolved to string in end (other types say number can be resolved to string)
+		
+		* cant write multi line expression
+		
+		* can use ternary
+		
+		* can call a method in string interpolation
+	
+	=> property binding [prop]="data"
+	
+	
+
+	template to ts
+	---------------
+	=>	Event binding (event) = "expr"
+
+	
+* Two-way data binding
+		[(ngModel)] = "data"
+	
+
+		  
+Property binding
+================
+
+	* use [] to directly bind the property from template to ts
+	
+	[] = "propetyNameInTs"
+	
+	* dynamic
+	
+	* can use interpolation and property binding interchangeably.
+	
+	* dont mix property binding and interpolation
+	
+	
+Event Binding 
+=============
+
+* syntax -> (eventName)="method()"
+	
+	e.g <button (click) = "onClickBlah()">
+	
+* can put logic inline -> not recommended to put so much.
+
+* passing and using data 
+
+	use $event in template method call 
+	
+	e.g onClickButton($event)
+	
+	
+
+Two way data binding
+==================== 
+* in tutorial formsModule is said to be required 
+
+* we combine property and event binding
+
+	[(ngModel)] = "propertyName"
+
+* to use ngModel formsModule is necessary
+
+* binding in both directions
+
+Directives:
+===========
+
+* Directives are instructions in the DOM
+
+* Components are also instruction in DOM
+
+* Components are directives with a template
+
+* use @Directive decorator
+
+	
+	
+	1.ngIf (shipped with angular)
+	
+		*ngIf is structural directive.
+		
+		* it changes the structure of the DOM (either add or remove element)
+
+		* must use *ngIf
+		
+		* to use if else 
+		use local reference with # in the ng-template
+			 
+			 e.g <p *ngIf="false"; else refName>
+			 
+			 <ng-template #refName></ngTemplate>
+  
+	2.ngStyle (inbuilt)
+	
+		* this is an attribute directive
+		
+		* unlike structural directives these only change the elsement they were placed on , they dont add or remove elements 
+		
+		*usage : [ngStyle]="{}" -> can use methods inside
+		
+		[ngStyle] = {bgColor : getColor()}
+		
+		* dynamically update the style
+		
+	3.ngClass
+		
+		* builtin attribute directive
+		
+		* dynamically add or remove css classes
+		
+		* works with property binding
+		
+		* usage [ngClass] = "{'class-Name' : boolean , 'class-Name' : methodCall}"
+		
+	4.ngFor
+	
+		* structural directive (changing the dom itself)
+		
+		* usage *ngFor = "let i of list"
+		
+		e.g <tag *ngFor = "let element of elements></tag>
+		
+Debugging :
+===========
+
+	* when breakpoint placed in js in browser -> goes to ts
+	
+	
+Components and databinding:
+===========================
+
+tip : use --spec false not to create test file in ng g c
+
+* property and event binding :
+==============================
+
+
+custom property binding -> with components and directives
+
+
+	* create a property in the component
+ 
+	* all properties in the component are accessible only in that
+	
+	* to access it outside the component / parent to bind 
+	use decorator @Input() imported from @angular/core
+	
+	* use propertyBinding to pass.
+	
+	e.g 
+	
+	<tag *ngFor = let app of apps [bindingProperty] = "app"></tag>
+	
+	
+	* assigning alias to element name
+		@Input('alias')
+	now target alias name as property
+	
+	
+ Binding Custom events
+ ---------------------
+ 
+  <tag (customEventName)=method($event)></tag>
+  
+  * in the parent component add property 
+  
+  * to make this property event
+  customEventName = new EventEmitter<key : value ,key : value>();
+  
+  * eventEmitter allows to emit event 
+  
+  * call customEvent.emit({key:value}); in the parent component method call
+  
+  * to make the customEvent listenable use @Output()decorator
+  
+  * custom events are in child component and passed to child from parent
+  
+  child component c has to send event to parent p 
+  
+  * emit the event from child
+  
+  TO SUMMARISE : 
+  
+	* create event definition in child with @output() and new EventEmitter<>();
+	
+	* use the created event name in parent and call method
+	
+	* use emit method to emit event from child
+  
+using alias to custom events:
+-----------------------------
+
+@Output('alias')
+
+
+View Encapsulation:
+===================
+
+* if css is given in one component say parent it will affect other components too.
+
+* to prevent this angular adds attribute to the elements like ng-content..
+so css will apply on that component only
+
+* if given encapsulation : ViewEncapsulation.none 
+there will not be encapsulation
+(i.e the css in child will apply to other components as well )
+this is at component level.
+
+
+Using local references in templates:
+=========================
+
+* instead of 2 way binding 
+place a local reference in the html element using #refName
+
+* pass the refName in method 
+
+* this reference holds the whole element so use element.value to use value
+
+
+@viewChild()
+==============
+	8+ 
+	@viewChild('input',{static:true'}) input:eleRef
+	
+	static:false is not required if 9+
+	
+pass name of local reference to @viewChild('name') decorator to the property to access.
+
+
+
+Directives Deep Dive:
+=====================
+
+
+* Attribute Directives
+
+	* Only affect / change the element they are added to 
+	
+	* [ngClass] = "{cond : condition}"
+	
+	* square bracket indicates we are binding
+	
+	* can use multiple attribute directive in same element.
+	
+	
+
+* Structural Directives
+	
+	* Affect whole are in DOM
+	
+	* Cant have more than one structural directive in an element
+		-> wrapping it with another div might be a workaround
+	
+	* 
+	
+	
+Creating own attribute directive:
+=================================
+
+* use <name>.directive.ts
+
+
+* export class Directive name
+
+* use decorator @Directive
+
+* pass object to configure.
+
+
+	@Directive({
+		selector : '[selectorName]'
+	})
+
+
+	// directive can be accessed without [] if given like this
+
+	E.g 
+	
+	export class DirectiveName implements OnInit{
+		// Element Passed 
+		
+		
+		constructor(private eleRef : ElementRef){
+		
+		
+		
+		}
+		
+		ngOnInit(){
+		}
+		
+		}
+
+		
+* In app module add the directive to be able to work
+
+* accessing element directly is not a good practice
+
+	(this.elementRef.nativeElement.style.='sd');
+	
+* use Renderer2 instead
+
+* renderer.setStyle()
+
+* renderer is a better approach because angular is not limited to browser.
+
+
+Host listener to listen host events:
+-----------------------------------
+
+* use @HostListener() 
+
+@HostListener('mouseenter') mouseover(eventData:Event){
+	
+	// we can use custom events too
+}
+
+* @HostBinding('<which property of hosting element')
+
+	-> bind this to property 
+
+    -> better way to access
+    
+    
+* use @Input decorator to accept input in directive
+
+* angular will figure of which to bind (either property of directive or other property)
+
+* if the propery is string we can either declare it as [propName] = "''" or propName= ""
+
+
+Custom Strucural Directives:
+---------------------------
+
+
+	-> the * indicates its a structural directive
+	
+	-> conditional rendering
+	
+	-> <ng-template> is property binded with [ngIf] = "condition" -> this is how   * is transformed into
+	
+	
+	
+Building Custom Structual Directive:
+=-=-=-=-=-==-=--==-=---------=======
+
+*create a directive
+* in constructor use templateRef,viewContainerRef
+
+	vcRef.createEmbeddedView();
+
+* we can bind a property with setter 
+
+
+	//this executes when prop changes
+	@Input propName setter(){
+	}
+
+
+* if selector is appUnless .. -> whatever the name of the property is binded.
+
+* ngSwitch :
+-------------
+
+	<div [ngSwitch]="value">
+	
+		<p *ngSwitchCase="5></p>
+		<p *ngSwitchDefault></p>
+		
+	</div>
+	
+* if default case is not present nothing is shown on dom i.e dom remains unchanged
+
+
+
+
+SERVICES & DEPENDENCY INJECTION:
+================================
+
+
+Services : 
+
+say there is a logging logic .. it makes sense to keep it centralised.
+
+e.g store data in local storage 
+
+
+
+	-> Service is just a class which acts as a central repo / business unit 
+
+	-> communication bw components.
+	
+	-> service is just a ts class.. no decorators are used
+	
+	-> its not recommended to create an instance of service manually and use.
+	
+	-> instead inject it.
+	
+	-> to inject add constructor 
+	and pass.
+	
+	constructor ( private className : <Type>)
+	
+	
+	-> add providers : [<Type>]
+	to @Component decorator so angular will know how to create that Type / object
+	
+	-> why injecting better?
+		
+	 
+	 
+Dependency Injector:
+=====================
+	
+	provide means tell angular how to create the dependency
+	
+	DRY -> Dont repeat urself
+	
+	
+Data Service:
+=============
+	IMP : use ngOnInit lifecycle hook to initiate
+	
+Angular dependency injector is an Hierarchical injector.
+
+i.e if a parent has the service,
+all the child will have the same instance of the service.
+
+E.g if its in AppModule -> App wide same instance
+
+if the service is in the lowest level -> it overrides the above level.
+
+
+How many instance of service should be there?
+
+
+if we need it the service ot be propagated -> DON'T GIVE IT IN PROVIDER and leave it in constructor.
+
+
+Injecting services in to service:
+---------------------------------
+
+
+we can inject service in to another service .. if we provide it in App module.
+
+use constructor and inject inside the service.
+
+IMP : if we are injecting in to service we need some metadata
+
+use @Injectable() -> will tell angular that in this service something can be injected.
+
+i.e give it in receiveing end.
+
+In new angular versions -> may need to add @Injectable in child too.
+
+
+
+Services for Cross component communication:
+-----------------------------
+
+
+* previously we bind propety and event emits to communticate.
+
+* Now using service
+
+	-> declare event on service.
+	-> emit the event from component.
+	-> use subscribe() in the new component.
+	
+
+IMP : 
+
+IN angular 6+ we can use @Injectable({providedIn : 'root'}) instead of providing the service in the app module.
+
+
+in new syntax services are lazy loaded by angular and redundant code is removed automatically.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=================================	
+
+* Components and binding
+* Directives
+* Services & DI
+* Routing
+* Observables
+* Forms
+* Pipes
+* HTTP
+* Authentication
+* Optimisations & ngModules
+* Animations
+
+
+
