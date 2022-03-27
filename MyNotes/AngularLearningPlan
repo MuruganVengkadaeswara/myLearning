@@ -578,22 +578,90 @@ in new syntax services are lazy loaded by angular and redundant code is removed 
 
 
 
+ROUTING
+=======
+
+Registering routes :
+--------------------
+
+	we are registering routes in app module
+	
+	
+
+	const appRoutes : Routes = [
+		{path : 'path' , component : <Component> }
+	];
 
 
+	-> Routes object imported from @angular/core
+	
+	-> import RouterModule
+
+		in imports
+		
+			-> RouterModule.forRoot(appRoutes)
+			
+			(now registerd)
 
 
+	-> <router-outlet></router-outlet> (directive)
+	
+		 -> used to render in html
+
+	
+	-> Navigating with router links
+
+	-> IMP : Was not able to add / to path only without / works
+	
+	
+	-> Use RouterLink directive to pass the paths to the app
+	
+	-> can also use property binding for router 
+	
+	-> there is a difference bw absolute path (e.g /home) and relative path (home)
+	
+	-> if given with relative path then the path is appended with current path
+	
+	-> relative path either have no / or ../
+	
+	
+	
+	-> use routerLinkActive directive to apply css classes
+	
+	-> / is always active (empty path) so use routerLinkActiveOptions directive and use property binding 
+	
+		[routerLinkActiveOptions]="{exact:true}"
+		
+		i.e if its exact 
+		
+Navigating programmatically:
+===========================
+	
+	-> We can inject Router to the angular class and use 
+	
+		router.navigate(['/path']) to navigate
+
+	-> using relative paths in router navigation
+	
+		even if we dont use / wont throw error in navigate method
+		
+		
+		can add relativeTo:
+		
+		router.navigate(['servers'],{relativeTo: this.route});
 
 
+		by default relativeTo is to the root
+		
+		
+Passing parameters to Routes:
+=============================
 
 
-
-
-
-
-
-
-
-
+	->  use :paramName in path (appRoutes) to dynamically pass
+		
+		
+		
 =================================	
 
 * Components and binding
