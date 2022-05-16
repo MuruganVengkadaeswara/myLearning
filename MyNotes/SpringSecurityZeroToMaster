@@ -233,15 +233,79 @@ spring security considers inmem users as priority than in application.properties
 -> Framework always expects passwordEncoder 
 
 
+How user details , userdetails service and manager are linked?
+========================================
+
+* InMemoryUserDetailsManager
+* JdbcUserDetailsManager
+* LdapUserDetailsManager
+			|
+			|
+			V
+   UserDetailsManager (Inteface)
+			|	(extends)
+			V
+   UserDetailsService (Interface)
+			|	(extends)
+			V
+	  UserDetails     (Interface)
+
+Abstract methods in UserDetails Interface:
+
+	* getPassword()
+	* getUserName()
+	* getAuthorities()
+	* isAccountNotExpired()
+	* isAccountNonLocked()
+	* isCredentialsNonExpired()
+	* isEnabled()
+
 	
+Abstract methods in UserDetailsService Interface:
+
+	* loadUserByUserName(String userName)
+
+	return userDetails
+
+
+
+Abstract methods in UserDetailsManager Interface:
+
+	* createUser(UserDetails user)
+	* updateUser(UserDetails user)
+	* deleteUser(String userName)
+	* changePassword(String op , String np)
+	* userExists
 
 
 
 
 
+UserDetailsManager handles everything related to user
 
 
+-> InMemoryUserDetailsManager , JdbcUserDetailsManager , LdapUserDetailsManager (ldapServer)
+all are implemented in spring framework
 
 
+-> User implements UserDetails and CredentialsContainer
+
+-> UserBuilder is inner class in User
+   can build the user 	
+
+-> UserDetailsService
+
+	always query using userName
+	(to avoid the password expose in DB logs)
+
+-> Compares with passwordEncoder
 
 
+-> there is AuthenticationProvider which helps 
+
+-> To crud user details -> implement userDetailsManager interface
+
+ InMemoryUserDetailsManager , JdbcUserDetailsManager , LdapUserDetailsManager (ldapServer)
+
+
+ 
