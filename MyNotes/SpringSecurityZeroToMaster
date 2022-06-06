@@ -309,3 +309,34 @@ all are implemented in spring framework
 
 
  
+UserDetailsPasswordService :
+===========================
+
+
+
+
+JdbcUserDetailsManager:
+======================
+
+* loadUserByUserName()
+
+
+
+Creating MySql DB in AWS:
+=========================
+
+ -> check free tier
+ -> db instance identifier
+ -> give master user name and password
+ -> create database
+
+-> Modify the database (set a new rule for public access)
+-> (under additional connectivity configuration)
+
+-> may need spring security ldap dependency
+
+
+-> return the JdbcUserDetailsManager(datasource) 
+
+Customising JdbcUserDetailsManager
+==================================
