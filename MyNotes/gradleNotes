@@ -1,7 +1,64 @@
-Gradle Notes :
-==============
+Gradle MasterCourse:
+====================
+DSL -> Domain Specific Language
 
-What is gradle ?
-		
-		
+Gradle depends on Groovy
 
+Groovy is DSL
+
+The build script uses proper programming languge
+
+
+
+Groovy:
+========
+
+def listName = ["item1" , "item2"]
+
+listName.each{
+    println it
+}
+
+-> Semi colons are optional in groovy
+
+-> java equivalent will be declaring and initialising the list and using for each to print
+
+class in groovy:
+================
+
+class Person{
+    String name
+    String age
+
+    Person(name,age){
+        this.name = name
+        this.age = age
+    }
+
+    def increaseAge(Integer years){
+        this.age += years
+    }
+}
+
+
+=> Groovy is backwards compatible with JAVA
+
+
+-> build scripts are present in build.gradle
+-> build.gradle is present in root folder of project
+
+
+-> Eclipse has buildship plugin 
+
+
+Using Gradle:
+=============
+
+-> create a build.gradle in the project 
+
+-> Right click on the project -> configure -> add gradle nature
+
+-> To run the gradle script inside eclipse 
+we need to create a run configurations
+
+-> 
