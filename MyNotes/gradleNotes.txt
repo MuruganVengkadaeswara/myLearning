@@ -82,7 +82,79 @@ we can import classes in the gradle
 * Return statement :
 ====================
 
-Return statement in groovy is optional
+-> Return statement in groovy is 
+optional
 
-if there is more than one line 
--> last line value gets returned
+-> if there is more than one line 
+ last line value gets returned
+
+
+
+Types in Groovy:
+===============
+
+-> if the variable if untyped 
+we use def keyword.
+
+-> def is anonymous with object
+
+    def = Object
+
+    def date = new Date();
+
+-> Integer will be a Type
+
+-> If we type the variable or method
+we impose typeSafety
+
+Groovy Strings:
+----------------
+
+-> Groovy doesnt have character
+literals
+
+-> strings can be wrapped with double
+and single quotes
+
+-> string over multiple lines 
+
+    def str = """
+            line1
+            line2
+            line3
+     """
+
+-> String interpolation can be done 
+with $variable 
+
+    def x = 4
+    println "x is $x"
+
+-> we can interpolate code almost
+
+    def myCourse  = "Mv"
+    println "mv ${mv.toUpperCase()}"
+
+-> string interpolation works only with
+double quotes
+
+
+Properties in Groovy:
+======================
+
+-> the getters and setters are 
+autoimplemented 
+
+    Person p = new Person("asd")
+
+    p.name
+
+-> if we have hashmap 
+
+    map
+
+    we can assign the value to key 
+    like map.key = value
+
+Closures:
+=========
