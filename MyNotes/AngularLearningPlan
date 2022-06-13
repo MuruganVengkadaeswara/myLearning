@@ -695,3 +695,74 @@ Passing parameters to Routes:
 
 
 
+
+
+INTERNATIONALISATION AND LOCALISATION:
+=====================================
+
+i18n :
+
+-> process of preparing and designing the app to support its use in differnt languages
+
+
+-> separting content from translation
+
+-> updating app to support bi directional 
+ text
+
+
+ Next step is localisation
+
+ -> Localisation is the process of building 
+ versions of the project for different 
+ locales
+
+
+
+Locale:
+-------
+
+-> Locale identifies a region where people 
+speak a language or language variant
+
+-> Includes formatting for 
+
+	-> measurement of time
+	-> numbers and currency
+	-> translations of names
+
+
+	{language-id}-{locale_extension}
+
+	en-US , fr-CA
+
+
+				en-US
+
+	i18n ----->  fr-CA
+
+				de-CH
+
+
+Install dependencies
+
+internationalise 
+
+localise
+
+
+
+add 
+
+ng add @angular/localise
+
+OTI => Opportunity to Internationalise
+
+we can use i18n in the tag 
+and $localize in ts
+
+ng extract-i18n --output-path src/locale 
+
+to create file 
+
+(the content which are marked i18n) will be here
