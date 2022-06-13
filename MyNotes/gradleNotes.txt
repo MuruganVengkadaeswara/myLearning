@@ -158,3 +158,96 @@ autoimplemented
 
 Closures:
 =========
+
+-> closures are declared by {}
+
+-> we can assign to variable
+   using def
+
+   def clo = {}
+
+   println clo
+
+-> closures are like anonymous class in 
+java
+
+-> we can use parameter in closures
+
+def clo1 = {String param -> 
+println param
+}
+
+def clo2 = { a , b , c -> 
+
+println a 
+println b
+
+
+}
+
+-> we can use Closure as type also 
+
+    Closure cloName = {
+
+    }
+
+-> the above is useful when u need to pass
+closures as parameter
+
+-> groovy performs type check in runtime
+
+
+-> Common use for closures
+
+    ->  multi line closure
+
+Code Block design pattern:
+
+
+Closure Resolution:
+===================
+
+Class Person {
+
+    String name = "MV"
+
+    Closure nameSayer = {
+        println name
+    }
+}
+
+def p1 = new Person()
+p1.nameSayer()
+
+-> Closure keep the reference to the 
+context object in which it is defined
+not the value
+(so the value will get updated)
+(JS also uses same concept)
+
+-> delegate is a property on the closure
+its same as owner 
+(Can be programmatically changed)
+
+-> we can create a new object and execute
+an arbitrary code on that class (without 
+having to change the class) and have a
+reference to the instances
+
+-> Closures are open anonymous block of code
+that can take args , return value 
+and assigned to a variable
+
+-> context is owner object
+-> delegate is the owner object in groovy
+
+
+
+class Per{
+    def executeIn (Closure c){
+        c.delegate = this
+        c()
+    }
+}
+
+p1.executeIn( {random  code})
