@@ -251,3 +251,14 @@ class Per{
 }
 
 p1.executeIn( {random  code})
+
+Gradle Object Model or Gradle API
+=================================
+
+-> Gradle relies on plugins
+
+-> Used by Gradle DSL
+
+6 Key Interfaces:
+
+-> Script Interface
