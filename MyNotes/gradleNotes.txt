@@ -262,3 +262,156 @@ Gradle Object Model or Gradle API
 6 Key Interfaces:
 
 -> Script Interface
+
+    Script interface is implemented by all
+    gradle scripts
+    (files ending with .gradle)
+
+
+    * there is a logger in script
+
+    * apply method is in script If
+
+    * apply {
+        println 'hello '
+    }
+
+
+    -> Use -i in run configurations
+    (as command line parameter )
+       to use logger
+
+
+     
+-> Project Interface
+
+    associated with build.gradle
+
+-> Gradle Interface
+
+
+-> Settings Interface
+
+
+-> Task Interface
+
+-> Action Inteface
+
+
+
+
+Gradle Lifecycle:
+==================
+
+Gradle build has 3 phases
+
+1.Initialisation
+
+    maps to -> init.gradle + 
+                <xxx> gradle
+
+            (collectively -> init scripts)
+
+AND
+
+    settings.gradle
+
+    (not mandatory in single project)
+
+
+
+
+
+2.configuration
+
+    The project create phase gets configured
+
+    build.gradle
+
+    The delegate object is project
+
+3.Execution
+
+    The build gets performed 
+
+    relies on build.gradle
+
+
+Note : 
+
+if its multi project -> each project will
+have a build.gradle
+
+
+init.gradle is present in 
+
+.gradle -> init.d folder
+
+
+-> We have access to the gradle object 
+in all lifecycle
+
+    so we can set
+
+    gradle.ext.timestamp
+
+
+-> 
+
+
+IMP****
+=======
+
+(configuration Phase)
+build.gradle -> script obj 
+        --> (delegates to) -> Project Interface
+
+
+(Initialisation Phase)
+
+settings.gradle -> script obj
+        --> (delegates to) -> settings If
+
+(init phase)
+init.gradle -> script obj
+        --> (delegates to )-> Gradle obj
+
+
+both project and settings objects has access 
+to gradle object
+
+
+First, Gradle scripts 
+are configuration scripts. As the script
+ executes, it configures an object of a
+  particular type. For example, as a 
+  build script executes, it configures 
+  an object of type Project . 
+  This object is called the delegate 
+  object of the script.
+
+
+-> We can either use
+
+if build.gradle:
+----------------
+gradle.property (or) 
+project.gradle.propertyName
+
+
+if settings.gradle:
+------------------
+settings.gradle.propertyName
+
+if init.gradle:
+--------------
+
+gradle.propertyName
+
+Project object:
+---------------
+
+    project object is the default context
+or delegate
+
+ 
