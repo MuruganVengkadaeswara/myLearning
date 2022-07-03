@@ -415,3 +415,18 @@ Project object:
 or delegate
 
  
+Gradle.properties:
+===================
+
+    -> can store in  key value form
+
+    -> this properties are available to 
+    scripts in settings.gradle and build.
+    gradle
+
+    -> in project root
+    -> in GRADLE_USER_HOME
+
+    -> create and add user defined 
+    properties ( powerful feature)
+
