@@ -4,3 +4,320 @@ Git Notes :
 What is GIT ? 
 
 
+GIT GOING FAST CRASH COURSE :
+=============================
+
+http://git.training/fast
+
+
+* Basic Git concepts
+
+ -> Key concepts : 
+
+    -> Distributed / decentralized
+
+    -> Version Snapshots not spec files
+
+
+    -> Repo contains 
+        ->Files
+        ->History
+        ->Config managed by git
+
+    -> Commit
+        -> Saved changed to git repo
+        -> impacts history
+        -> sha1 hash (unique id)
+
+    -> Branches
+        -> Timeline with commits
+        -> master - main -default
+
+
+    -> HEAD : 
+        -> pointer to last commit on branch
+
+    -> Remote : 
+        -> related repo - but not local
+        -> github , gitlab etc
+
+* Git workflow
+===============
+start local:
+
+WD -> staging area -> git repo  |  remote
+work    add            commit  push     
+
+start remote:
+
+Clone initially the created repo and same as above
+
+-----------------------------------------
+* Setup / configuration
+
+
+
+
+
+
+To get help on any command : 
+
+
+-> git help
+-> git help config
+-> git help command
+
+
+
+Configuring user:
+    
+-> git config --global user.name 'name'
+-> git config --global user.email 'mail'
+
+-> git config --global --list
+    (lists the user and mail)
+
+-> also can cat the ~/.gitConfig
+
+
+
+------------------------------------------
+
+* Initialize project
+
+-----------------------------------------
+* Working locally
+-------------------
+
+
+    -> git init 'dir name'
+    ->
+
+
+
+-> Git index is aka staging area
+
+-> If file is added it will be in tracked 
+
+-> Not added to git -> untracked
+
+  
+-> git commit -am "message"
+    -> -a will add the unstaged file
+       to staging area
+
+-> unstage git reset HEAD 
+
+
+-> git checkout == fileName
+
+
+-> git log -- gives all the commits
+
+-> git log --oneline --graph --decorate --color
+
+-> Removing files
+
+    -> if commited
+        -> git rm 'fileName'
+        -> commit
+        -> rm 'filename'    (without git knowledge) -> git add file
+
+-> moving files
+
+    -> with git : 
+        -> git mv 'file' 'dest'
+        -> renamed will come
+
+
+-> ignoring files
+    
+    ->  in .gitignore
+    -> ignore file format 
+        -> one pattern per file
+
+
+    eg. *.log
+
+    -> . files and . folders are ignored by default
+
+    -> 
+
+
+
+History and File Management Commands
+Git History / File Management Commands
+
+ 
+Lecture Command Listing -- History
+
+git log
+git help log
+git log --oneline --graph --decorate --color
+
+ 
+Lecture Command Listing -- Removing Files
+
+pwd
+git status
+mate debug.log
+ls
+git status
+git add .
+git status
+git commit -m "adding log file that really does not belong here"
+clear
+git status
+git rm debug.log
+ls
+git status
+git commit -m "removing log file"
+clear
+mate info.log
+ls
+git add info.log
+git commit -m "adding info log"
+git status
+clear
+ls
+rm info.log
+ls
+git status
+git add .
+git add -u
+clear
+git status
+git commit -m "Removing info.log"
+
+ 
+Lecture Command Listing -- Moving Files
+
+ls
+mkdir web
+ls
+git mv index.html web
+cd web/
+ll
+pwd
+cd ..
+ls
+git status
+git commit -m "Moving index.html file to web folder"
+clear
+
+ 
+Lecture Command Listing -- Ignoring Files
+
+mate application.log
+ls
+git status
+mate .iitignore
+git status
+ls -a
+git add .gitignore
+clear
+git status
+git commit -m "adding ignore file"
+
+ 
+Command Reference
+
+Seeing Repository History
+
+git log
+git log --oneline --graph --decorate --color
+
+Git's log command displays the repository's history in reverse chronological order. The no-params version displays the standard view.
+Git log options from above: --oneline Compacts log data on to one line, abbreviating the SHA1 hash --graph Adds asterisk marks and pipes next to each commit to show the branching graph lines --decorate Adds the markers for branch names and tags next to corresponding commits --color Adds some color to the output -- nice to have, depending on the operating system
+
+Removing a file using Git
+
+git rm file-name
+
+Removing a file using Terminal
+
+rm file-name
+
+This removes the file outside Git's knowledge
+
+Updating Git's Index (staging area)
+
+git add -u
+
+The -u parameter will recursively update Git's staging area regarding deleted/moved files outside of Git.
+
+Making a directory (folder)
+
+mkdir folder-name
+
+The mkdir command is a nearly universal command for creating a directory/folder.
+
+Making a directory (folder)
+
+git mv source destination
+
+The git mv command will move the source (file or folder) to the destination with Git.
+
+
+- END
+
+
+
+
+
+----------------------------------------
+
+* Going remote
+
+
+    -> Set up ssh 
+        mkdir .ssh
+        cd .ssh
+        ssh-keygen -t rsa -C "email"
+        save to default
+
+        ls -al
+
+        copy id_rsa.pub content 
+         -> github -> acc settings -> ssh keys -> add ssh key -> paste
+
+      -> ssh -T git@github.com
+            (successfully authenticated)   
+
+
+
+
+
+-> Github changes default branch name
+
+    in git default is still master
+
+    in github changed to main (For new repos)
+
+    git config --global init.defaultBranch 'name'
+
+
+    git config --global --list
+
+
+-> collaborating with others
+    -> git remote add origin 'repo'
+    -> git remote -v
+
+    -> git push -u origin master
+        set to track remote branch from origin
+
+    > git push origin master
+    > best practice -> pull before push
+    
+
+
+
+
+
+-----------------------------------------
+Foundational Git workflow
+
+    -> start a new project
+    -> working with Git
+    -> Collaborate
