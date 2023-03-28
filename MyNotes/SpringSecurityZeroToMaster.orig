@@ -1,0 +1,350 @@
+Spring Security : 
+=================
+	
+	
+-> Security
+-> Passwords
+-> Users and roles
+-> multiple logins
+-> fine grained security
+-> CSRF and CORS
+-> JWT and OAUTH2
+-> Preventing attacks
+
+Agenda:
+======
+
+1 Spring security core
+
+2 Authentication and
+  Authorisation
+ 
+3 Password Management
+
+4 Global method security
+ 
+5 OAUTH2 , CSRF , CORs , JWT
+
+
+Introduction to security
+========================
+
+What is security?
+
+-> to protect the data and business logic in your application
+
+-> security is non functional requirement
+	
+	* e.g performance , scalablilty
+
+-> Security from DEV phase
+
+-> Diff types of security
+	Https ,ssl, authentication, authorisation
+
+
+-> Avoiding common attacks
+	-> CSRF, broken authentication
+
+
+
+Spring security is a dedicated framework
+
+
+
+Starting basic spring security project:
+
+-> dependency : 
+
+		* Spring starter security
+		* Spring starter web
+
+
+
+
+
+By default all the APIs are protected with spring security
+
+	-> 
+	
+	
+* in application.properties
+	we can define custom user name and password
+	
+	user.name = 
+	user.password = 
+	
+* if we refresh after authentication , we dont need to authenticate again
+
+* browser is storing token / session?
+
+* from postman we can give username and password in authorisation tab
+	
+	-> username , password
+
+* a Cookie called JSESSIONID is stored in headers in browser and postman
+
+* for unauthorised authorisation also the cookie will get stored so everytime user will receive unauthorsied response
+
+* this JSESSION cookie is maintained by spring security
+
+* we can optimise this by use of JWT and OAUTH
+
+
+
+
+Spring secutiy internal flow
+============================
+and architecture:
+================
+
+
+
+user (credentials)
+-> 
+authentication filter 
+(Class)
+->
+Authentication (Object) (Interface)
+->
+Authentication manager (Interface)
+-> 
+Authentication Provider (Interface)
+-> 
+UserDetailsService , Password encoder (Interfaces)
+-> 
+Authentication manager 
+->(Interface)
+Authentication filter 
+-> 
+SecutiryContext 
+(Interface)
+-> 
+User
+
+Security context is the place where we store the data of user once he is authenticated
+
+(valid / invalid) 
+
+
+if same security info is passed again -> we will get from context ?
+
+
+
+
+
+Authentication provider is where we define how the user should be authenticated
+
+Security context is the interface where we store the authenticated user details
+
+
+* By default all the endpoints will be authorised
+
+
+* For basic security config
+	
+	-> create a class and extend the  
+	websecurityconfigurerAdapter
+	
+	-> annotate with @configuration
+	
+
+	-> the default configure method will say to authenticate anyrequest()
+	
+	
+	-> Configure() will acced HttpSecurity Object
+
+
+* How to provide a service without the authorisation?
+
+	
+	in configure method
+	
+	-> authorizeRequests()
+		.antMatchers(urlPattern)
+		.authenticated()
+		
+		
+	-> use .authenticated() to authenticate .permitAll() if not required
+	
+	
+* How to deny all the request?
+
+	-> anyRequest().denyAll()
+
+-> what does formLogin() and httpBasic() mean?
+
+* How to permit all request?
+
+	-> anyRequest().permitAll()
+
+
+
+
+Defining and managing users:
+============================
+
+
+	
+-> UserDetailsService & PasswordEncoder
+
+
+-> Creating multiple users 
+   with roles and authorities
+   
+   
+   
+** 
+
+override another method in securityConfiguration
+
+configure(AuthenticationManagerBuilder auth)
+
+	auth.inMemoryAuthentication.withUser("").password.authorities("").and()....continueForMoreUsers
+
+
+finally should pass 
+
+	.passwordEncoder(encoder)
+
+
+-> 
+
+
+spring security considers inmem users as priority than in application.properties
+
+
+
+
+-> Also can use 
+	
+	InMemoryUserDetailsManager()
+	
+	we can build userDetails
+	
+	pass the inMemoryUserDetailsManager to auth.userDetailsService()
+	
+	create a bean of passwordEncoder type 
+	
+	framework will take the bean automatically
+	
+	
+	
+-> Framework always expects passwordEncoder 
+
+
+How user details , userdetails service and manager are linked?
+========================================
+
+* InMemoryUserDetailsManager
+* JdbcUserDetailsManager
+* LdapUserDetailsManager
+			|
+			|
+			V
+   UserDetailsManager (Inteface)
+			|	(extends)
+			V
+   UserDetailsService (Interface)
+			|	(extends)
+			V
+	  UserDetails     (Interface)
+
+Abstract methods in UserDetails Interface:
+
+	* getPassword()
+	* getUserName()
+	* getAuthorities()
+	* isAccountNotExpired()
+	* isAccountNonLocked()
+	* isCredentialsNonExpired()
+	* isEnabled()
+
+	
+Abstract methods in UserDetailsService Interface:
+
+	* loadUserByUserName(String userName)
+
+	return userDetails
+
+
+
+Abstract methods in UserDetailsManager Interface:
+
+	* createUser(UserDetails user)
+	* updateUser(UserDetails user)
+	* deleteUser(String userName)
+	* changePassword(String op , String np)
+	* userExists
+
+
+
+
+
+UserDetailsManager handles everything related to user
+
+
+-> InMemoryUserDetailsManager , JdbcUserDetailsManager , LdapUserDetailsManager (ldapServer)
+all are implemented in spring framework
+
+
+-> User implements UserDetails and CredentialsContainer
+
+-> UserBuilder is inner class in User
+   can build the user 	
+
+-> UserDetailsService
+
+	always query using userName
+	(to avoid the password expose in DB logs)
+
+-> Compares with passwordEncoder
+
+
+-> there is AuthenticationProvider which helps 
+
+-> To crud user details -> implement userDetailsManager interface
+
+ InMemoryUserDetailsManager , JdbcUserDetailsManager , LdapUserDetailsManager (ldapServer)
+
+
+ 
+UserDetailsPasswordService :
+===========================
+
+
+
+
+JdbcUserDetailsManager:
+======================
+
+* loadUserByUserName()
+
+
+
+Creating MySql DB in AWS:
+=========================
+
+ -> check free tier
+ -> db instance identifier
+ -> give master user name and password
+ -> create database
+
+-> Modify the database (set a new rule for public access)
+-> (under additional connectivity configuration)
+
+-> may need spring security ldap dependency
+
+
+-> return the JdbcUserDetailsManager(datasource) 
+
+<<<<<<< HEAD
+Customising JdbcUserDetailsManager
+==================================
+=======
+
+
+
+
+
+>>>>>>> 04bdb63 (Starting AWS)
