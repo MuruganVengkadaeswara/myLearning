@@ -605,6 +605,240 @@ ser + ser => will add the values based on key => if no key is present returns na
 dataframes
 ==========
 
+each col is series
+
 np.random.seed(101)
 
+df = pd.DataFrame(data, [col-label],['rowLabel])
 
+
+pd.DataFrame(data,index,labels)
+
+
+dataframe is bunch of series which share same index
+
+
+df.ColName also can be used
+
+df[[list of col names]]
+
+
+
+df['new'] = df['Col'] + df ['Col2]
+
+
+df.drop will remove column
+
+
+df.drop(ColName)
+
+label not contained in axis
+
+so use
+
+df.drop(colName,axis=1)
+
+df.drop(Colname,axis= 1,inplace=True)
+
+inplace will make change in the actual data
+
+df.drop can used to drop rows
+
+
+axis=0 is default
+
+
+Col axis = 1 : Row Axis = 0
+
+df.shape returns a tuple
+
+(5,4) => 0 index is rows 1 index is col
+
+selecting rows
+
+-> df.loc[rowLabel]
+
+
+
+
+rows are also serie
+
+df.iloc[index]
+df.iloc[2]
+
+subsets:
+df.loc[[rowlabels][colLabels]]
+
+
+condtional selection:
+======================
+
+df > 0
+
+=> will return dataframe of boolean
+
+=> df[df > 5] -- will return df wil values
+
+
+returning rows and cols
+
+df['D'] > 1 -returns rows boolean column
+
+df[df['D'] > 1]
+
+D=> colName 
+
+df[df['D'] > 1] 1 st row is skipped
+
+
+df[df['F'] > 6]['F']
+
+
+-- for multiple cond selection
+df[(df['F'] > 6) & (df['E'] > 9)]
+df[(df['F'] > 6) | (df['E'] > 9)]
+
+use & instead of and
+use | instead of or 
+
+we get ambiguos error
+pythons and can handle one bool value at a time
+
+
+df.reset_index() => will move the index to the df 
+
+i.e old index will become col in df
+
+this takes inplace as variable for change to be
+
+
+if we want to set one column to index
+
+df.set_index('Col_Name')
+
+* this will overwrite the index
+
+* this also takes inplace arg
+
+
+
+
+Multi index/Index hierarchy
+----------------------------
+
+
+to create multiple index
+
+outside = ['G1','G1','G1','G2','G2','G2']
+inside = [1,2,3,1,2,3]
+hier_index = list(zip(outside,inside))
+hier_index = pd.MultiIndex.from_tuples(hier_index)
+
+
+
+use MultipIndex
+
+
+can give names to index
+
+using df.index.names = ['namelist']
+
+
+df.xs => crosssection
+returns cross section 
+
+
+df.loc['G1']
+
+df.xs('G1') = > will skip and go inside multi level index
+
+df.xs(1,level=0)
+
+df.xs('G1',level=1) -> if not present in level -> returns error
+
+missing data
+-------------
+
+
+-> if we have missing points pandas will fill with nan or null
+
+-> df.dropna() will drop the col / row 
+if has nan
+
+-> if axis is specified (Default axis is 0 - row) say 1 cols with null is dropped
+
+-> thresh arg is interger value to specify the tolerable number of nan
+
+ (if there is more than 2 nan it removes the row)
+
+ since axis = 0
+
+-> df.fillna(value='FILL_VALUE')
+
+    will fill the na with the value
+
+    df[ColName].fillna(value=df.[colName].mean())
+
+Group by
+--------
+
+-> Group together rows based on col
+
+-> perform agg fun on them
+
+-> df.groupby(ColName)
+    returns groupby obj
+
+
+-> byCol = df.groupby(colName)
+
+-> byCol.aggFun() say mean,sum,std
+
+
+    standard deviation -> average amt of variablilty in the dataset
+
+
+-> df.groupby('col').aggFn()
+
+    count , max ,min
+
+-> df.groupby(col).describe()
+
+
+
+-> df.groupby(col).describe().transpose()
+
+Merging , joining, concat df
+----------------------------
+
+pd.concat([df list] , axis)
+
+fills with NaN
+
+left right are pd
+
+pd.merge(left,right,how='inner',on='key') similar to join in SQL
+
+pd.merge(left,right,on[keyList])
+
+df.join(df1) => based on index_key
+
+
+operations
+----------
+
+
+imp operations for pandas
+
+unique , nunique
+
+df[colName].value_counts()
+
+value_counts() -> how many times unique values occured
+
+to call userdef function in df
+
+-> df[colName].apply(fun)
+
+-> removing columns
+    -> df.drop()
