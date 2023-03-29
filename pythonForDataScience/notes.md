@@ -842,3 +842,104 @@ to call userdef function in df
 
 -> removing columns
     -> df.drop()
+
+
+
+
+
+
+
+SKIPPING TO MACHINE LEARNING:
+-----------------------------
+
+
+supervised learning
+---------------------
+
+-> network receives set of input data
+->  
+
+
+
+Data Acquisition => Data Cleaning => 
+cleaning / formatting using pandas
+
+Test data -> Training data
+
+30 % to test / 70 % to train
+e.g
+
+Model training and building -> model testing
+
+Model deployemnt
+
+
+(Simplified approach)
+
+
+is it fair to use single split of data ??
+
+
+
+To fix issue
+
+-> Training data
+-> Validation data
+
+    used to determine what model hyperparams 
+    to adjust
+
+
+-> Test data
+
+
+-> train /test split
+
+-> 
+
+Evaluating performance
+------------------------
+
+Classification:
+---------------
+
+Classification metrics:
+----------------------
+Accurary
+recall
+
+
+
+
+
+predicted values vs real values 
+in a confustion amtrix
+
+
+
+
+Incorrect vs correct
+
+Accuracy:
+-----------
+
+Accuray = no  of correct / total
+
+
+unbalanced classes
+
+ -> 99 images of dog 1 image of cat
+
+REcall:
+========
+
+
+Abitity of modle to find all the relavant cases in dataset
+
+
+
+
+
+
+
+
