@@ -843,98 +843,432 @@ to call userdef function in df
 -> removing columns
     -> df.drop()
 
+df.isnull()
+df.sort_values()
+
+
+df.pivot_table()
+
+pivot_table(values,index,cols)
+
+
+pivot_Table to create multi level index
+
+Data input and output
+======================
+
+pandas has library to read / write data from / to various sources
+
+
+
+-> csv
+-> html
+-> sql
+-> excel
+
+conda install 
+
+sqlalchemy
+lxml
+html5lib
+Beautifulsoup4
+
+
+
+pd.read_csv('fileName')
+
+reads csv file as dataframe
+
+write to csv file -> 
+pd.to_csv(df_name)
+
+
+
+
+df.csv('out',index=false)
+
+
+conda install xlrd
+
+pd.read_excel(filename,sheetName)
+
+pd.to_Excel(fileName,sheet_name='name')
+
+
+
+Html:
+....
+copy the html link
+
+
+pd.read_html(link)
+
+
+
+pyMysql
+
+psychoSql => postgres
+
+
+from sqlalchemy import create_engine
+
+
+engine = create_engine('sqlite:////:memory:')
+
+--> inmemory db
+
+df.to_sql('table',engine)
+
+engine => connection
+
+
+look for sql specific library to read 
+
+sqldf = pd.read_sql(tableName,con=engine)
+
+
+kaggle.com **
+
+
+
+
+
+df[colList].corr()
+
+to check the correlation
 
 
 
 
 
 
-SKIPPING TO MACHINE LEARNING:
------------------------------
+
+Data visualisation:
+--------------------
+
+matplotlib:
+
+plotting library of python
+
+similar feel to matlab
+
+control over every aspect of figure
+
+conda install matplotlib
 
 
-supervised learning
----------------------
+import matplotlib.pyplot as plt
 
--> network receives set of input data
-->  
+%matplotlib inline will help u to see the plot in notebook
 
 
-
-Data Acquisition => Data Cleaning => 
-cleaning / formatting using pandas
-
-Test data -> Training data
-
-30 % to test / 70 % to train
-e.g
-
-Model training and building -> model testing
-
-Model deployemnt
+plt.show() in other envs
 
 
-(Simplified approach)
+plt.show() is printig the plot
 
+plt.xlabel('lablename')
 
-is it fair to use single split of data ??
+plt.title(title)
+plt.ylabel(name)
 
 
 
-To fix issue
+plt.subplot()
+
+Object oriented :
+ -> create figure obj
+
+ fig = plt.figure()
+
+ fig is blank canvas
+
+ axes = fig.add_axes(list)
+
+
+axes.plot(x,y)
+axes.set_Xlabel()
+
+
+
+
+
+
+fig = plt.figure()
+axes1 = fig.add_axes([0.1,0.1,0.8,0.8])
+axes2 = fig.add_axes([0.2,0.5,0.4,0.3])
+
+
+
+axes1.plot(x,y)
+
+axes2.plot(y,x)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Geographical plotting
+======================
+
+plotly , matplotlib
+
+
+
+
+
+Machine learning
+=================
+
+supervised learning:
+----------------------
+
+
+-> Trained using labeled examples such as input where the desired output is known
+
+-> E.g spam vs legitimate email
+
+
+-> nw receives a set of inputs along with correct outputs and algo learns by comparing its actual output with correct outputs to find erros
+
+-> then it modifies the model accordingly
+
+
+
+-> Used in  apps where historical data predicts likely future events
+
+
+
+Steps :
+=======
+Data acquisition
+
+Data Cleaning (using pandas)
+
+
+Test data 
+
+
+        Test the model
+
+
+
+Training Data
+
+    Model training and building
+
+    Model testing
+
+    Adjust model params
+
+    Model Deployment
+
+
+Test train split:
+-------------------
+
+
+    its unfair to split in to 2 sets
+
+
+* To fix split to 3 sets
 
 -> Training data
+    used to train model params
+
 -> Validation data
-
-    used to determine what model hyperparams 
-    to adjust
-
+    used to determing what model hyperparams to adjust
 
 -> Test data
+    used to get final performance metric
 
 
--> train /test split
 
--> 
+
+
+
+-> After final result is seen on test data
+    we dont adjust
+
+
+-> in the course only train / test split is done
+
 
 Evaluating performance
-------------------------
+-----------------------
 
-Classification:
----------------
+-> Classification metrics
 
-Classification metrics:
-----------------------
-Accurary
-recall
+    + Accuracy
 
+        no of correct predictions / Total predictions
+        
+        -> useful if target classes are well balanced
+                (same no of dog and cat images)
 
+        -> not useful in unbalanced class
+            (if 99 cat and 1 cat its unbalanced)
 
+        
 
+    + Recall
 
-predicted values vs real values 
-in a confustion amtrix
+        -> Ability of model to find relevant cases within dataset
 
-
-
-
-Incorrect vs correct
-
-Accuracy:
------------
-
-Accuray = no  of correct / total
+        ->  true positives / (true positives + false negatives)
+        
 
 
-unbalanced classes
 
- -> 99 images of dog 1 image of cat
+    + Precision
 
-REcall:
-========
+        -> Ability of model to identify only relevant data points
+        
+        -> true positives / (true posi + false positives)
 
 
-Abitity of modle to find all the relavant cases in dataset
+        -> tradeoff bw Recall and precision
+
+        -> Recall -> ability to find relevant instances in dataset
+
+        -> Precision proportion of datapoints our model says was relevant actually were relevant
+
+
+    + F1 score
+
+        -> combination of precision and recall 
+
+        F1 = 2 * (precision * recall  / precision + recall)
+
+
+        f1 score is harmonic mean of recall and precision
+
+        -> Punishes the 
+
+
+
+Confusion matrix:
+------------------  
+
+            predicted cond
+
+  tot pop  pred pos        pred neg
+
+    cond +  TP                  FN
+
+tc
+    Cond -  FP                  TN
+
+
+Check wiki
+
+
+Based on context 
+
+    -> move towards inc false +ve or -ve
+
+    e.g prostate cancer and urine test
+
+
+
+
+
+
+
+
+
+Regression error metrics: / Evaluating performance
+=======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> Reasoning:
+
+    Any classification will be correct / not
+    if there are multiple classes it will expand
+
+
+Binary classification :
+-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
