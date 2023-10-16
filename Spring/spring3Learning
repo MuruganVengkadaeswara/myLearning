@@ -1,0 +1,48 @@
+Spring learning
+----------------
+
+inversion of control : 
+----------------------
+    IOC is the concept of 
+    outsourcing the construction and 
+    managing the objects
+
+    Application -> Object factory
+    -> create objects
+    based on configuration
+
+spring container works as object factory
+
+primary functions of spring container:
+
+    -> create and manage objects (IOC)
+    -> inject object dependency (dep injection)
+
+
+    3 types of configs :
+     
+        XML
+        Java annotations
+        java source code
+
+Dependency injection :
+----------------------
+
+Dependecy inversion principle
+
+    client delegates to another object the responsibiliy of providing its dependency
+
+    
+    injection types: 
+
+        -> constructor injection
+
+        use for required dependency
+
+
+
+        -> setter injection
+
+Autowiring:
+
+    
