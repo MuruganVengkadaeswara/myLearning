@@ -1056,6 +1056,102 @@ Bag of words Model:
 
 
 
+CLUSTERING : 
+=============
+
+
+    Clustering is similar to classification , but the basis is different.
+
+    In clustering we dont know what we are looking for and u are trying to identify some segments /  clusters in the data
+
+
+    K-Means Clustering
+    Hierarchical Clustering
+
+
+
+
+
+
+what is clustering ?
+Supervised and unsupervised learning 
+
+
+
+in supervised learning such as regression and classification we have input data to say they are apples for e.g
+
+in unsupervised learning there is no preexisting categories or groups
+
+we apply clustering in to groups 
+
+
+
+
+
+K - means clustering intuition:
+-------------------------------
+
+we have scatterplot of data points 
+
+we need to create clusters
+
+we need to decide how many clusters?
+
+    by elbow method
+
+random selection of 
+
+
+
+
+within cluster sum of squares (WCSS)
+
+we need to take the elbow of the WCSS and number of cluster
+
+optimal number == elbow
+
+
+
+Kmeans ++
+----------
+
+in order to avoid the initialisation mistake 
+
+if we are getting different clusters for same data
+its wrong
+
+
+
+we use the k-means++
+
+
+
+Init algorithm :
+
+1. choose first centroid at random points
+
+2. for each remaining data points we need compute distance (D) to nearest of already selected centroids
+
+3. choose next centroid among remaining data points using weighted random selection - weighted by D squared
+
+4. repeat 2 and 3 until all centroids are selected
+
+5. proceed with standard k means clustering 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

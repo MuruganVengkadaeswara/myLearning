@@ -1,0 +1,155 @@
+What is AWS ? 
+
+    Aws is a cloud provider 
+    
+    they provide servers and
+    services 
+    that we can use on demand 
+    and scale easily
+
+
+    Aws powers biggest websites in the world such as amazon.com
+
+    etc
+
+
+NOTE :
+
+    It is perfectly fine to start with this course if you're new with AWS.
+
+
+While many learners start with AWS Certified Cloud Practitioner, then AWS Solutions Architect Associate, then move on to AWS Certified Developer, 
+
+
+
+
+    https://courses.datacumulus.com/downloads/certified-developer-k92/
+
+
+
+## GETTING Started
+
+2002 -> internally launched
+
+2005 -> public launch
+
+
+AWS is the leader of cloud market 
+
+1m active users
+
+AWS use cases :
+
+    Enables u to build sophisticatd and scalable applications
+
+
+    Applicable to  Diverse set of industries
+
+    Enterprise IT , backup , storage , big data analytics
+
+
+
+AWS global infrastructure:
+
+
+Regions 
+Availablity zones
+local zones
+points of presence
+network
+
+
+
+
+AWS regions are all around the world
+
+Names can be us-east-1 eu-west-3 etc.
+
+A region is a cluster of data centres
+
+
+Most aws services are region scoped
+
+
+
+How to choose aws region?
+
+    1. compliance with data governance and legal requirements.
+    Data never leaves a region without explicit permission
+
+    2. Proximity to customers : 
+    Reduced latency
+
+    3. Available services within a region : new services and new features are not available in every region
+
+    4. Pricing : Pricing varies region to region and transparent 
+
+
+AWS Availablity zones :
+
+    Each region has many availability zones 
+    usually 3 , min is 3 and max is 6
+
+    E.g ap-southeast-2a
+        ap-southeast-2b
+
+
+Each availability zone is one or more discrete data centers with redundant power , networking and connectivity.
+
+They are separate from each other so that they are isolated from disasters
+
+COnnected with high bandwidth ultra low latency nw
+
+
+AWS Edge location (Points of presence)
+
+    400+ points of presence
+
+    content is delivered without latency
+
+
+
+AWS global services :
+
+    IAM (Identity and Access management)
+    Route 53 (DNS)
+    Cloudfront (Content delivery)
+    WAF (web application firewall)
+
+Region Scoped :
+
+    EC2  (IAAS)
+    Elastic beanstalk (PAAS)
+    Lambda (FAAS)
+    Rekognition (SAAS)
+
+
+Check region table
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
