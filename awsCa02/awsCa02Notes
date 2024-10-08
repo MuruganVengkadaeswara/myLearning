@@ -128,28 +128,104 @@ Check region table
 
 
 
+## IAM & AWS CLI
+=================
+
+
+-> Root account created by default should not be used or shared
+
+-> Users are people within org and can be grouped
+
+
+
+Group : Devlopers
+
+Group : Operations
+
+
+Groups can only contain users and not other groups
+
+Users dont have to belong to a group and user can belong to multiple groups.
+
+
+IAM : Permissions :
+-------------------
+
+    Users or groups can be assigned JSON Documents called policies
+
+    E.g 
+
+        {
+            "Version" : "date"
+            "statement" : [
+                {
+                    "Effect" : "Allow",
+                    "Action" : 
+                    "ec2:Describe
+                }
+            ]
+        }
+
+
+    These policies define the permissions of users
+
+    in AWS you apply the least privilege principle : 
+    dont allow more permissions than user needs
 
 
 
 
 
+Creating Users and groups :
+----------------------------
+
+
+IAM as entire service is a global service 
+
+so no region selection
+
+If account ID is available to us it root user. 
+
+not a good practice to use root user
 
 
 
+Go to IAM , create user , user groups and then we can customize sign in URL 
 
 
 
+if not root account we can see IAM user name and account Id
 
 
+IAM policies inheritance
+------------------------
+
+        If group is assigned a policy then its inherited to the users
 
 
+        if user doesnt belong to any user group then its "inline policy"
 
 
+IAM Policies structure
+----------------------
+
+    It has Version (usually "2012-10-17")
+
+    Id (optional)
 
 
+    Statement  (Required)
 
+        Sid : <statement id>
 
+        Effect : Allow / Deny
 
+        Principal: <account / user the policy is applied to >
+        
+        Action : list of actions this policy allows / denies
 
+        Resource : list of resources
 
+        Condition (optional) : condition for when this policiy is in effect
 
+In hands on we did remove user from root user 
