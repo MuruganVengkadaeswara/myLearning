@@ -1265,6 +1265,316 @@ DOCKER WINDOWS:
 
     
 
+    docker toolbox contains oracle vbox , docker engine , kitematic GUI
+
+
+
+
+    for docker toolbox - virtualisation enabled
+
+
+    docker desktop:
+    ---------------
+
+    we use native virtualisation using hyperV
+
+    using hyperV - insatll linux - docker
+
+
+    both options - runs linux
+
+    with win 10 pro we have windows containers
+
+    default option to use linux container
+
+
+    windows container - from 2016
+
+    windows server container
+
+    it also uses hyper v isolation where kernel can be changed for container
+
+    Base images:
+    -----------
+
+        windows server core
+        nano server
+
+        
+        virtual box or hyper v cant co exits
+
+
+
+
+DOCKER ON MAC:
+==============
+
+
+    docker on mac is similar to windows
+
+
+    1. Docker toolbox
+
+        Docker with linux VM on a virtual box 
+
+        has vbox
+        engine
+        Kitematic GUI
+        docker machine
+        docker compose
+
+    2. Docker desktop 
+
+        we use hyperkit virtualisation technology
+
+        and use linux and run dokcer
+
+
+        macOs sierra and later
+
+        there are no mac based images / containers
+
+        we purely use linux containers
+
+
+
+Container orchestration:
+=========================
+
+
+
+    why orchestrate?
+
+
+    when number of users increase we may need to run additional image
+
+
+    and we have to monitor the images 
+
+    what if host crashes?
+
+
+    
+    Container orchestration is a solution 
+    that consists of set of tools / scripts that can help host containers in prod env
+
+
+    typlically we have multiple docker hosts
+
+
+    docker service create --replicas=100 nodejs
+
+
+    some orch solutions can help us to scale up / down the number of instances based on users 
+
+    also advanced networking bw containers
+
+    load balancing user requests
+
+    sharing storage
+
+    config managment
+
+    security
+
+
+
+    -> Docker swarm
+    -> kubernetes
+    -> Mesos
+
+    swarm lacks bit
+
+    kubernetes is popular 
+
+
+    Docker swarm:
+    =============
+
+        with docker swarm we can combine muliplte docker machine together
+        in to a single cluster 
+
+
+        docker swarm will take care of distributing the service
+
+
+
+        one host -> swarm manager
+
+        others are workers
+
+
+        all are docker hosts
+
+        docker swarm init
+        docker swarm join --token <tokern>
+
+
+
+
+    docker run my-web-server
+
+    docker swarm orchestrator 
+
+
+    docker service is the key component
+
+    docker service create --replicas=4 image
+
+
+    docker service must be run on manager node
+
+    docker service create is similar to docker run command
+
+
+    docker service create --replicas=4
+    --network x image
+
+
+
+
+
+Kubernetes:
+===========
+
+
+    with kubernetes cli - kubectl
+
+    we can run 1000 instances using single command
+
+    kubernetes can scale , upgrade all images
+
+    using single command
+
+    kubectl rolling-update image --rollback
+
+    it supports variety of authen , authori
+
+
+    relation bw docker and kubernetes
+
+    kubernetes uses docker host to host apps in the form of docker container
+
+    a kubernetes cluster consists a set of nodes
+
+
+    NODE : is a machine physical / virtual where kubernetes software is installed
+
+    CLUSTER : set of nodes grouped together
+
+
+
+    MASTER : is the node where kubernetes control plane components is installed
+
+
+    Kubernetes:
+
+        API server
+        etcd
+        scheduler
+        kubelet
+        controller
+        container runtime
+
+
+        container run time is docker
+
+        kubelet - agent
+
+    Kubectl:
+
+        kube control
+
+
+        kubectl run hello-minikube
+
+        kubectl cluster-info
+
+        kubectl get nodes
+
+
+        kubectl run image --image=image --replicas=4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
