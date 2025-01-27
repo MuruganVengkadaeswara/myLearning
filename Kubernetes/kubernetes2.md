@@ -782,17 +782,143 @@ Kubernetes controllers:
 # Networking in kubernetes:
 ============================
 
-    
+    if we have minikube
+    we will have minikube ip address
+
+    or else we have the ip of the node and communicate
+
+    unlike in docker world the IP address is assigned to a pod
+
+    each pod gets internal ip
+
+    10.244 series
+
+    accessing other pods using internal ip is not ideal because it will change
+
+
+    also when we have different nodes the pod may get same IP
+
+    kubernetes doesn't automatically set up any network to hadnle this
+
+    all containers can communicate without NAT
+
+    all nodes can communicate with all containers and vice versa without NAT
+
+
+    multiple prebuilt solutions available like cisco , flannel ,cilium , calico
+
+    own systems - calico , flannel
+    vm ware nev - nsx tag
+
+    play with K8 labs 
 
 
 
 
 
 
+# Services:
+============
 
 
 
+    kuberenetes services enable communication bw various components within and outside the application
 
+
+    apps have group of pods like frontend , backend 
+
+
+    it is services that enables connectivity between these pods
+
+
+    services enable loose coupling between micro services
+
+
+
+    External communication:
+    ------------------------
+
+        without SSH ing in the container
+        we have to communicate to the app 
+
+        service is the solution for this
+
+        kubernetes service is an object like deployments , replica set and pods
+
+        use case : listen to a port on the node and forward request to the pods (NodePort service)
+
+
+
+        service types: 
+
+            NodePort
+
+            clusterIP (the service creates virtual IP inside the cluster to enable communtion between set of services)
+
+            Load Balancer (it provisions load balancer for our services)
+
+## Nodeport
+
+        mapping port on node to a port on the pod
+
+        3 ports involved
+
+        1. targetPort (port on the pod)
+        2. ServicePort (port on the service)
+        3. Nodeport on the node (used to access)
+            (30000 - 32767)
+
+        inside the cluster service has it own IP (cluster IP)
+
+        service-defn.yaml
+        -----------------
+
+            mandatory field is port
+
+            we can give nodePort : 30000 range
+
+            we can have multiple port mappings since its list of dictionary
+
+            we also have to use labels and selector
+
+            in spec section -> 
+
+                selector:
+                    app : appName
+                    type : frontend
+
+        kubectl create -f servicefile.yaml
+
+        kubectl get services
+
+
+
+        when there are multiple pods with same selector -> service selects all three pods to map the request 
+
+        service acts as built in load balancer
+
+                Random alogrithm to distribute load 
+
+
+        when pods are distributed across multiple nodes kubernetes creates a service spand across nodes and map the same node port to the target
+
+        so in this case we can use any IP in the cluster to access the pod
+
+    Demo:
+    -----
+
+        we have deployment
+
+        now to access from user 
+
+        we create service
+
+        
+
+
+## clusterIP:
+
+## load balancer
 
 
 
