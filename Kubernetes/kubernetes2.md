@@ -918,11 +918,250 @@ Kubernetes controllers:
 
 ## clusterIP:
 
+
+    we may have different types of pods for each part of the application
+
+
+    what is the right way to establish connectivity
+
+    since the IP addresses are not static
+
+    also which pod to connect in a group
+
+    a service created for backend pods wil help to group them together
+
+    randomly it will forward the request
+
+    
+    this type of service is cluster ip 
+
+    in metadata we have name of service
+
+    in spec :
+        the type : clusterIP
+
+
+    kubectl create -f fileName
+
+type of default service is clusterIp created by kubernetes
+
+
 ## load balancer
 
+    the pods will have its own host and port
+
+    we cam leverage native load balancer
+    in cloud techs ilke aws gcp etc,.
+
+    spec:
+        type: LoadBalancer
+        ports:
+        - targetPort: 80
+          port: 80
+          nodePort: 30004
+
+
+# Microservices architecture:
+=============================
+
+
+    Microservices:
+    --------------
+
+        example voting application from docker
+    
+    Microservices on kubernetes:
+    ----------------------------
+
+    smallest object we can create is a POD
+
+    we must be clear on the connectivity
+    (internal and external)
+
+
+    worker app is not accesed by anyone in the voting example
+
+    how to make one component accessible by another 
+
+    we cant use internal IP because it will change
+
+    so we should use service
+
+
+    we create deployment for 
+
+    1.redis
+    2.postgres
+    3.voting app
+    4.result app
+    5.worker
 
 
 
+    Steps:
+
+    1.deploy pods
+
+    2.create services(clusterIP)
+        1.redis
+        2.db
+
+    3.create services( NodePort)
+        1.voting app
+        2.result app
+
+    
+
+    kodekloudhub/example-voting-app
+
+    (Exercise it later)
+
+
+        we create pod files
+
+        in pod file we give the env variable
+
+        better way to do this is secrets 
+
+
+        we create service file
+
+        we dint specify nodeport for internal services (no external users)
+
+        in service metadata we give names
+
+        in frontend service we provided nodeport and type
+
+
+    kubectl get pods,svc
+
+    there was another example for this
+    using kubenetes deployments
+
+    we begun with 1 replica for every pod
+
+    services remained the same
+
+    also we scaled the pods
+
+
+# Kubernetes on cloud:
+======================
+
+    Options to deploy kuberenetes cluster on the cloud
+
+    gcp
+    aws 
+    azure
+
+
+    selfhosted/turnkey solutions
+
+        provision vm
+        configure vm
+        use scripts to deploy cluster
+        maintain vms ourself
+        
+        kubenetes on aws using kops / kubeone
+
+        in cka course we have kubeadm tool
+
+        
+
+    managed solution
+
+
+        KAAS (kubernetes as a service)
+        provider provisions vms
+
+        provider installs kubernetes
+        provider maintaines vms
+        google container ENgine (GKE)
+
+        we dont have access to master nodes
+
+    
+    GKE (google kubernetes engine)
+    AKS (Azure)
+    EKS (amazon Elastic kubernetes service)
+
+    GKE:
+    -----
+        create kubernetes cluster on GCP platform
+
+        inside k8s specification directory
+
+        kubectl create -f . 
+
+
+        
+
+
+# Appendix:
+============
+
+    kubeadm setup
+
+    kubeadm tool is used to bootstrap the kubernetes cluster
+
+    STEPS:
+
+        1. multiple systems or VMS provisioned
+        2. designate one as master and others as worker nodes
+        3. install container run time
+        4. install kubeadm tool in all the nodes
+        5. init master server
+
+        6. network prerequisites
+
+        7. pod network
+        8. join nodes
+
+
+    see the kubernetes docs for this
+
+
+    we use virtualbox and vagrant
+
+    vagrant can be used to bring up vms with one command
+
+
+    bootstrap kubernetes cluster using kubeadm
+
+     kubeadm - bootstrap cluster
+     kubelet - runs on all machines
+     kubectl - CLI to talk to the cluster
+
+
+    kubectl get pods -A 
+    (all namespaces)
+
+    kubectl edit svc <name> -n  <namspace>
+    
+    (for namepsace)
+
+    
+    options available in setting up kubenetes cluster:
+
+    local solution:
+    ----------------
+
+    minikube
+    microk8s
+
+    kubeadm (production grade)
+
+
+    hosted:
+    --------
+
+    GCP
+    aws
+    Azure
+    IBM cloud
+
+
+    
 
 
 
