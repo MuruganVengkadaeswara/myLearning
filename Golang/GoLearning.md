@@ -379,8 +379,407 @@ multiple return values:
 using args inside function call:
 
 
-    func deal(d deck , handSize int){
-
+    func deal(d deck , handSize int) (deck , deck){
+        return[:handSize],[handSize:]
     }
 
+
+    after args we give return type inside ()
+
+
+    to capture the multiple value
+
+    var1 , var2 := deal(Cards , 5)
+
+    	hand, remainingCards := deal(cards, 5)
+
+
+Receiver function syntax:
+------------------------
+
+    func (type) name() (return){}
+
+func (d deck) print() {
+	for i, card := range d {
+		fmt.Println(i, card)
+	}
+}
+
+saveToFile:
+--------------
+
+    golang.org
+
+        take frm packages
+
+
+    Take a deck and save in to harddrive
+
+    go - std lib packages
+
+    under packages in golang.org
+
     
+    [] -> slice
+
+    data []byte -> slice of byte / byte slice
+
+
+ByteSlice : 
+
+    take a string of characters
+
+    slice like array every element inside corresponds to ascii value
+     
+    this is byte slice
+    
+    convert stirng to []byte
+
+    type conversion : 
+
+        converting one type of value to another
+
+    []byte("Hi there)
+
+    typeWant(typeHave)
+
+
+
+    should we use receiver / not (deciding)
+
+
+	return strings.Join([]string(d), ",")
+
+
+func (d deck) saveToFile(fileName string) error {
+	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+}
+
+
+
+LoadFromFile:
+-------------
+
+    using ReadFile(fileName) ([]byte,error)
+
+    func readFromFile(fileName string) deck {
+	byteSlice, _ := ioutil.ReadFile(fileName)
+	return strings.Split(string(byteSlice), ",")
+    }
+
+
+
+errorHandling:
+--------------
+
+    nil is a value in go
+
+    (nil = noValue)
+
+    err != nil
+
+    error handling in go is tricky
+
+
+    log the error and continue
+    log the error and quit
+
+
+    from OS package we can quit the system
+
+
+    OS - exit(0) = success
+        exit(code) = something wrong
+
+Shuffling deck
+--------------
+
+    we can swap like this
+
+		d[i], d[newPos] = d[newPos], d[i]
+
+Random number generation:
+--------------------------
+
+    Random number requires seed value
+
+    by default go random number generator use same seed
+
+    type Rand is a source of random numbers
+
+
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPos := r.Intn(len(d) - 1)
+		d[i], d[newPos] = d[newPos], d[i]
+	}
+
+
+
+
+Creating go.mod file:
+---------------------
+
+    go mod init <modName>
+
+Testing with GO:
+-----------------
+
+    Go testing is not Rspec mocha jasmine or selenium
+
+    to make test
+    create 
+
+        _test.go
+
+
+    every file should have package
+
+
+    Errorf call has arguments but no formatting directives
+
+    Deciding what to test?
+
+
+    func TestNewDeck(t *testing.T) {
+	d := newDeck()
+
+	if len(d) != 16 {
+		t.Errorf("Expected deck length of 16, but got %v", len(d))
+	}
+    }
+
+
+    the * means type of value passed in to the function
+
+    t is test handler
+
+    to inject string value
+
+    %value
+
+    t.Errorf("Error : %value" , value)
+
+
+    Deleting a file 
+
+        os.remove("fileName") (error)
+
+
+    to modify the type of the receiver function 
+    we pass *
+    
+
+
+# Organising data with structs:
+===============================
+
+    to get the value of the card in the above example
+
+    we had to do some string ops
+
+    Data structure to solve this?
+
+    Structs:
+    --------
+
+        struct -> structure
+
+         A struct is a collection of fields. 
+
+        Data structure -> collection of different props related together
+
+        Struct - card
+
+        struct card{
+            suit string;
+            value string;
+        }
+        
+        its similar to javascript object
+    
+    Defining structs:
+    ------------------
+
+        Person struct
+
+            firstName
+            lastName
+
+
+    type <Name> struct{
+        firstName string
+	    lastName  string
+    }
+        
+    the value assignment is purely dependent on the order of the fields
+
+    if the fields are changed for structs somewhere later in time -> it will mess up the code
+    
+
+    declaring : 
+    -------------
+
+        p := person{values}
+        p1 := person{field : value}
+
+        var name structType
+
+        var p2 person 
+
+        this will be init with 0 value
+
+        string = ""
+        int = 0
+        float = 0
+        bool = false
+
+        etc
+
+        %+v -> will print field names and values 
+        with printf
+    
+    updating structs:
+    -----------------
+
+        person.firstName = "af"
+        
+
+
+    Embedding structs:
+    -------------------
+
+        embed one struct inside another
+
+        type contact struct{
+
+        }
+
+         type person struct {
+            name string
+            contactInfo contact 
+            // can simply give contactInfo to simply reuse the same name as struct
+        }
+
+        every single field should have comma
+
+    Structs with receiver functions:
+    -------------------------------
+
+    normally declare a receiver function and use
+
+
+
+    updating the fields through receiver function did not work
+
+    person.updateName() -> didnt take effect
+
+
+
+    Pointers in GO:
+    ---------------
+
+       Go is a  Pass by value language
+
+       means it will take the value passed to function and make a copy of that in the memory
+
+
+    structs with pointers:
+    ----------------------
+
+
+    we use 
+
+    personPointer := &person
+
+    to get memory address
+
+    & - gives memory address of the value this variable is pointing at 
+
+    * - give the value of this memory address pointing at
+
+
+    * infront of a type
+
+        this is type description 
+
+        it means we are working with pointer to person
+
+
+    * infront of a variable
+
+        this is an operator
+
+        it means we want to manipulate the value the pointer is referencing
+
+    turn address in to value with *address
+    turn value in to address with &value
+
+
+    pointer shortcut:
+    -----------------
+
+    when the type is pointer 
+
+    we pass pointer with &person
+
+    when we have type pointer to person and pass the variable itself (pointer to person and pass person variable) 
+
+    this is a shortcut
+
+   
+    if we have a pointer to type and pass the type 
+    its fine with go
+
+
+
+    Gotchas with pointers:
+    ----------------------
+
+    Go is pass by value language
+
+    In case of slice -> when we modified the value it didnt make copy it modified the original 
+
+    Whenever you pass an integer, float, string, or struct into a function, what does Go do with that argument?
+
+    Arrays :
+        Primitive DS
+        cant be resized
+        rarely used
+
+    Slices:
+        can grow and shrink
+        used 99% of time
+    
+
+    when we create slice internally go creates 2 different data structures 
+
+
+    first => slice (ptr to head , capacity , length)
+
+    pointer points to the array head
+
+
+    when we pass the slice to the function 
+    its copied but the memory address it points to is the same array.
+
+    so when we modify -> we are modifying the actual Array
+
+    ** Important **
+    ---------------
+    value types :
+
+        int , float , string ,bool , structs
+        
+        (worry about pointer)
+    
+    reference types:
+
+        slices , maps , channels , pointers , functions
+
+        (dont worry abt pointer)
+
+
+    go still makes copy but makes copy of the memory address
