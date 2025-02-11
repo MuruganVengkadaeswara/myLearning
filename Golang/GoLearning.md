@@ -783,3 +783,77 @@ Testing with GO:
 
 
     go still makes copy but makes copy of the memory address
+
+## Maps in GO:
+--------------
+
+    map is a collection of key value pair
+    
+    similar to javascript object
+
+
+    in Map -> keys and values are statically typed
+
+    key - must be of same type
+    value - must be of same type
+
+    manipulating maps:
+    ------------------
+
+        we can also declare with var keyword
+
+
+        var cols map[string]string
+
+        cols := make(map[string]string)
+
+        we dont have dot syntax in map
+
+        we have to select using key 
+
+        delete key value
+
+        delete(mapName,key)
+
+    iterating over maps:
+    -------------------
+
+
+    for key,value := range map{
+        //do
+    }
+
+
+    for color , hex := range c{
+        fmt.println(color)   
+    }
+
+
+    diff bw maps and structs:
+    --------------------------
+
+    
+        how is this diff from structs?
+
+
+
+        Map:
+
+        all key must be same type
+
+        all values must be same type
+
+        all the keys are indexed so we can iterate
+
+        map is 
+
+
+        struct:
+
+        all values can be diff type
+        
+        keys support indexing
+
+        struct is value type
+
+
