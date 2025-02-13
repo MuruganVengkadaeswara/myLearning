@@ -838,6 +838,7 @@ Testing with GO:
 
 
         Map:
+        ----
 
         all key must be same type
 
@@ -845,10 +846,15 @@ Testing with GO:
 
         all the keys are indexed so we can iterate
 
-        map is 
+        map is reference type (passing ref)
+
+        we dont need to know all the keys and values at compile time
+
+        collection of related properties
 
 
         struct:
+        --------
 
         all values can be diff type
         
@@ -856,4 +862,614 @@ Testing with GO:
 
         struct is value type
 
+        different properties
 
+        
+        where to use which?
+
+        map - collection of key value pairs
+
+        struct - collection of different fields
+
+## interfaces:
+===============
+
+
+    Every value has type
+
+    every function has to specify the type of its args
+
+    so every function we write must be rewritten to accomodate different types 
+    even if logic in it is identical
+
+    E.g 
+
+        sum fun with int and float types
+
+        the shuffle function doesnt have to be specific for the type deck
+
+        it can be done for float slice , int slice anything
+
+
+        example of english and spanish bots
+
+
+    func (englistBot) getGreeting() string {
+	return "Hello"
+    }
+
+    if we are not making use of the variable of receiver function we can just limit with the type
+
+
+    in the bot example
+    we had a function getGreeting that has different logic for both structs
+    and printGreeting with kind of same logic implementation
+
+    ****
+    
+    GO doesnt support method overloading even with different type
+    
+    ****
+
+
+    to reuse the print function for 2 different types
+
+
+    type bot interface {
+	    getGreeting() string
+    }
+
+
+
+    To whom it may concern ...
+
+
+        when we declare a type interface
+
+        all different types with the same function name and return type as the interface will be the member of type interface (bot)
+
+    in above example the type bot has getGreeting function which are the function similar to the functions declared for the interface
+
+
+    any type that implements the type's function as interface they are member of the interface type
+
+    type englishBot can be passed to the bot receiver function since it became member of type bot
+
+interface Rules:
+----------------
+
+    interfaces
+
+        type bot interface
+
+        getGreeting() string
+
+
+    type                englistBot                             
+
+    func (englishBot) 
+    getGreeting string
+
+    
+
+    type interfaceName interface {
+        methodName(<args>)(<returns>)
+    }
+
+
+    type bot interface{
+        getGreeting(string , int) (string , error)
+        getBotVersion() float64
+        respondToUser(user) string
+    }
+
+
+    type implementationType struct{
+
+    }
+
+
+
+    concrete type:
+
+        map , struct , int , string
+
+        concrete type is for which we can create values directly
+
+    interface type :
+
+        we can create values directly for interfaces
+
+
+    interface notes:
+
+    1. interfaces are not generic types
+
+            other languages have generic types go (Famously ) does not 
+
+            it doesnt have generic types
+
+    2. interfaces are implicit
+
+        we dont manually have to say our custom type satisfies our some inteface
+
+        we dnt say implement interface in go   
+
+    3. interfaces are contract to help us   manage types
+
+        GIGO if custom types implementation of a function is broken then intefaces wont help us
+
+        error when tried to return different type 
+
+         cannot use eb (variable of type englistBot) as bot value in argument to printGreeting: englistBot does not implement bot (wrong type for method getGreeting)
+                have getGreeting() int
+                want getGreeting() string
+        
+
+
+    4. interfaces are tough (how to read them is step 1)
+
+
+        understand how to read intefaces in standard lib. writing own interfaces are tough and requires exp
+   
+        first we need to learn to read interfaces
+
+HTTP package:
+-------------
+
+    Example program
+
+    makes http request to google.com
+
+    print response in terminal
+
+
+
+    func Get(url string) (resp *Response, err error)
+
+    body of the resp is blob 
+
+    in go io.ReadCloser
+
+
+    ReadCloser is interface
+
+    type ReadCloser{
+        Reader
+        Closer
+    }
+
+
+    type Reader interface {
+        Read(p []byte) (n int, err error)
+    }
+
+
+    Response struct 
+
+        status 
+        statusCode
+        Body (io.ReadCloser) -> interface
+
+
+        the field of the struct here is interface
+
+        io.Reader interface
+
+        Read([] byte) (int,error)
+
+
+    when struct has interface
+
+    it can be assigned with anything if it fulfils the interface
+
+    why inteface as type in struct?
+
+        body -> any value if it fulfils io.ReadCloser
+
+    if we define interface methods with Reader and Closer
+
+
+    we can take multiple interfaces and assemble to form a single interface
+
+    ReaderCloser has Reader and Closer interface
+
+
+    
+Reader interface:
+-----------------
+
+    purpose of Reader interface
+
+
+    Http request body []flargen
+    text file         []string
+    image             jpegne
+    user command      []byte
+    analog sensor     []float
+
+    we have these many types we have to write different functions for printing them
+
+        func printHttp()
+        func printText()
+
+    we use reader interface to get the data out of these different sources of inputs
+
+    for each of these different sources
+
+        source of input -> Reader -> []byte 
+
+    Reader is kind of an adapter that acts as a common point of contact that can act as input to those differnet sources
+
+
+
+    in our example the request body has implemented it
+
+
+
+    working with Read function
+    --------------------------
+
+	    bs := make([]byte, 999999)
+
+        this is empty byteSlice with 999999 elemets
+
+        Read function will read the source of data in to the byteSlice
+
+
+    	bs := make([]byte, 99999)
+	    resp.Body.Read(bs)
+	    fmt.Println(string(bs))
+
+        go has built in functions to do this
+
+    
+    this simplifies the above
+
+    	io.Copy(os.Stdout, resp.Body)
+
+
+
+    we use reader interface to take source of data and output in to byte
+
+    we take byte slice we pass to writer inteface and to some form of output
+
+
+
+Writer interface:
+-----------------
+
+
+    []byte -> writer -> source of output 
+    
+    
+    
+    (We need to find something in the standard library that implements writer interface )
+
+
+
+    io.copy takes writer and Reader 
+
+    writer has file as input and it has write method implemented
+
+
+    we can hover over the function to see the implementation
+
+    
+    custom writer:
+    ---------------
+
+
+
+        type customWriter struct {}
+
+        func (customWriter) Write(bs []byte) (int, error) {
+	        return 1, nil
+        }       
+
+
+
+
+
+Example :
+
+    type shape interface {
+        area() int
+    }
+-*+
+    type square struct {
+        sideLength int
+    }
+     
+    func (s square) area() int {
+        return s.sideLength * s.sideLength
+    }
+     
+    func printArea(s shape) {
+        fmt.Println(s.area())
+    }
+
+
+
+
+
+## GO Channels  and GO Routines:
+================================
+
+    Structs inside GO for concurrent programming
+
+
+
+    example of pinging url
+
+    we are sequentially / serially checking the url
+
+
+    we wait for the first request to complete 
+
+    we dont move until the first process is completed
+
+
+Go routines:
+------------
+
+    when we launch a go program -> we automatically create a go routine
+
+    go routine executes our code line by line
+
+    Blocking call
+
+    main go routine will be frozen on the blocking call
+
+    launching additional go routine
+
+
+	for _, link := range links {
+		go getResp(link)
+	}
+
+    we use go keyword 
+    
+    the go runtime will create a new routine and executed 
+
+    every single time go keyword is used 
+
+    new routine is created
+
+
+        Go scheduler
+
+    Go scheduler runs with one CPU 
+
+    by default 1 cpu
+
+    1cpu -> GO scheduler -> go routine 1..n
+
+    as soon as scheduler detects one routine is finished subsequent go routines are executed in case of 1CPU
+
+
+    in case of multiple cpus 1 cpu can run 1 go routine
+
+    scheduler runs one thread on each logical core
+    
+    by default go tries to use one core
+
+    "concurrency is not parallelism"
+
+    concurrency -> we can have multiple threads executing code if one thread blocks another one is picked and worked on
+
+        if there is block scheduler will switch 
+
+        go will use one core
+
+    parallelism -> multiple threads executed at exact same time
+    
+    requires multiple cpu
+
+
+    main routine created when we launch program
+
+    child routines are created by 'go' keyword
+
+    child go routines are not given respect like main routine?
+
+    we only use go keyword in front of function call
+
+    when we ran our multi thread program it didnt print results
+
+    when main routine creates child routines
+
+    after the creation of routines there will be nothing for the main routine to do -> so it exits
+
+
+
+Channels
+--------    
+
+    channels are used to communicate in
+    between different running go routines
+
+    one channel is created and use it to communicate between the routines
+
+    channels are the only way to communicate between the routines
+    
+
+    channel are like messaging 
+
+    channel is typed
+
+    channel can be used to pass around any types
+
+    channel of type string -> can only send string messages
+
+
+    channel implementation:
+    -----------------------
+
+    c := make(chan string)
+
+    its treated like any value in the go 
+
+    func getResp(url string, c chan string)
+
+
+    channel <- 4 
+    (send value to channel)
+    
+    myNumber <- channel
+    (wait for value to be sent to channel once we get assign to myNumber)
+
+    fmt.println(<-channel)
+    (wait for value to be sent to channel and print once we get value)
+
+    channel is a 2 way messaging device
+
+    1 person sending another receiving
+
+    we may want to send message from a go routine to main routine and vice versa
+
+
+Blocking channels:
+-------------------
+
+    after we create every single go routine
+
+    the main routine is waiting for the message to be received in the 
+    print statement
+
+    whichever one responded first in the links
+
+
+
+
+    func main() {
+
+	links := []string{
+		"http://google.com",
+		"http://facebook.com",
+		"http://golang.org",
+		"http://stackoverflow.com",
+		"http://ibm.com",
+		"http://microsoft.com",
+	}
+
+	c := make(chan string)
+
+	for _, link := range links {
+		go getResp(link, c)
+	}
+	fmt.Println(<-c)
+
+    }
+
+    func getResp(url string, c chan string) {
+	_, err := http.Get(url)
+
+	if err != nil {
+		fmt.Println(url + " is down")
+		c <- url + "is down"
+		return
+	}
+
+	fmt.Println(url + " is up")
+	c <- url + " is up"
+    }
+
+
+    once the data is received in the channel main routine prints it and exits the program
+
+    receiving a message in a channel is a blocking code
+
+
+    the other routines will not finish in this case
+
+
+    if we add another print line 
+
+    2 locations are waiting for the message to be received in the channel
+
+    so 2 steps will execute successfully
+
+    if we place a channel to be receving message and no message comes to channel 
+
+    the program wait endlessly
+
+
+Receiving messages:
+-------------------
+
+    Receiving a message in a channel is a blocking operation
+
+
+    for i := 0; i < len(links); i++ {
+		fmt.Println(<-c)
+	}
+
+
+
+Repeating Routines:
+-------------------
+
+    we are pinging continually the links
+
+
+    	for i := 0; i < len(links); i++ {
+		go getResp(<-c, c)
+    	}
+
+        for 
+        {
+		go getResp(<-c, c)
+	    }
+
+
+    for l := range c {
+		go getResp(l, c)
+	}
+
+
+ // Here we are using range with channel
+
+ Sleeping a routine:
+ ------------------
+
+    in the time package
+
+    sleep function
+    
+
+    for l := range c {
+		time.Sleep(time.Second)
+		go getResp(l, c)
+	}
+
+
+    when we sleep the main routine its a blocker and cant receive message in channel
+
+
+
+function literals:
+-------------------
+
+    function literal is lambda function / anonymous function (js)
+
+    
+        func() {
+            // do
+			time.Sleep(time.Second * 2)
+			getResp(l, c)
+		}()
+
+## Channels gotcha:
+-------------------
+
+
+    range variable l captured by function literal warning
+
+    it didnt occur in our env
+
+    function literal there was issue
+
+    copied in memory
+
+    
