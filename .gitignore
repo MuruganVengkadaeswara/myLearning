@@ -1,0 +1,13 @@
+### IntelliJ ###
+.idea/
+*.iml
+
+### SBT ###
+target/
+project/target/
+project/.history/
+project/project/
+
+### Scala ###
+*.class
+*.log
